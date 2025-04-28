@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     }
 
     // 假设你想查询表 `elements` 中的所有数据
-    const sqlQuery = 'SELECT * FROM elements';
+    const sqlQuery = 'SELECT * FROM login';
     
     connection.query(sqlQuery, (error, results) => {
       if (error) {
