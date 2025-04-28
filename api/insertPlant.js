@@ -1,6 +1,16 @@
 import mysql from 'mysql2';
 
 export default async function handler(req, res) {
+  // 设置 CORS 头部，允许所有来源访问
+  res.setHeader('Access-Control-Allow-Origin', '*');  // 允许来自所有域的请求
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // 允许的请求方法
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');  // 允许的请求头
+
+  // 如果是 OPTIONS 请求，直接返回成功
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // 只允许 POST 请求
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
