@@ -1,20 +1,5 @@
 import mysql from 'mysql2/promise';
-import jwt from 'jsonwebtoken';
-
-// JWT 验证函数（可复制到其他接口中）
-function verifyToken(req) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return null;
-
-  const [type, token] = authHeader.split(' ');
-  if (type !== 'Bearer' || !token) return null;
-
-  try {
-    return jwt.verify(token, process.env.JWT_SECRET);
-  } catch {
-    return null;
-  }
-}
+import { verifyToken } from './jwt';  // 引入验证 JWT 的函数
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
