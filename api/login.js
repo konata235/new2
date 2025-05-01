@@ -33,8 +33,9 @@ export default async function handler(req, res) {
       return res.status(401).json({ message: '用户名或密码错误' });
     }
 
+    // 登录成功，生成包含 account 的 JWT
     const token = jwt.sign(
-      { account: user.account }, // 🔑 关键：JWT 里传 account 字段
+      { account: user.account },  // 将 account 字段放入 JWT
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
