@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
-      password: process.env.DB_PASS,
+      password: process.env.DB_PASSWORD, // ✅ 改这里
       database: process.env.DB_NAME
     });
 
