@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import { verifyToken } from './jwt'; // 路径根据实际项目调整
+import { verifyToken } from './jwt';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,8 +25,10 @@ export default async function handler(req, res) {
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      charset: 'utf8mb4',  // 这里一定要加上，支持完整中文字符集
+      charset: 'utf8mb4',
     });
+
+    await connection.query("SET NAMES utf8mb4");
 
     const [result] = await connection.execute(
       'INSERT INTO orders (account, timestamp, items, total) VALUES (?, ?, ?, ?)',
@@ -34,6 +36,7 @@ export default async function handler(req, res) {
     );
 
     await connection.end();
+
     res.status(200).json({ message: '订单创建成功', insertId: result.insertId });
   } catch (error) {
     console.error(error);
