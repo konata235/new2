@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import { verifyToken } from './jwt'; // 注意路径根据你的项目结构调整
+import { verifyToken } from './jwt'; // 路径根据实际项目调整
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
+      charset: 'utf8mb4',  // 这里一定要加上，支持完整中文字符集
     });
 
     const [result] = await connection.execute(
